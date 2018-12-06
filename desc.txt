@@ -1,0 +1,109 @@
+*********************************************
+基础信息
+python version: 3.5.2
+pip version: 18.1
+
+
+
+*********************************************
+工作步骤：
+1、 安装并使用虚拟环境，使用虚拟环境是一个良好的习惯：
+    1. task_list_api$ python3 -m venv venv(生成venv目录)
+    如果报错:Error: Command '['/home/dpottsagilisys/test/bin/python3.6', '-Im', 'ensurepip', 
+    '--upgrade', '--default-pip']' returned non-zero exit status 1.
+
+    请使用命令:python3 -m venv --without-pip venv
+    2. 激活虚拟环境：
+        task_list_api$ source venv/bin/activate
+
+2、安装需要的文件：
+    pip install flask flask-script flask-restful
+
+
+*********************************************
+
+
+
+
+
+///////////////////////////////////////////////
+*************20180924 modify******************
+
+1.适用于Python3
+2.插件版本使用最新版本
+2.全文替换flask.ext为flask_
+3.全文替换from flask_wtf import Form为from flask_wtf import FlaskForm
+
+
+5.安装Blog_mini需求文件
+
+    python3的话建议直接执行命令: pip install flask flask-script  Flask-SQLAlchemy Flask-Migrate Flask-WTF Flask-Bootstrap WTForms SQLAlchemy wheel flask-login flask-moment ForgeryPy gunicorn
+
+6.使用sqlite作为默认数据库来运行Blog_mini
+
+    Python本身就自带了sqlite数据库，因此如果你要使用sqlite来作为默认数据库，你不需要做任何配置。
+
+    接下来要做的就是运行Blog_mini了。
+
+    生成Blog_mini所需要的系统默认数据，请在Blog_mini目录下执行下面的命令：
+
+    (venv)xpleaf@leaf:~/project/Blog_mini$ python manage.py deploy product
+    INFO  [alembic.runtime.migration] Context impl SQLiteImpl.
+    INFO  [alembic.runtime.migration] Will assume non-transactional DDL.
+    INFO  [alembic.runtime.migration] Running upgrade  -> 051691f120e6, fit to MySQL
+
+    如果出现上面的提示就说明成功了！对于最后面出现的'fit to MySQL'大家不用觉得疑惑，这只是当时的一个备注，用来注明后面你要使用MySQL也是可以的，没有太大的意义。
+
+    查看生成的sqlite数据库：
+
+    (venv)xpleaf@leaf:~/project/Blog_mini$ ls
+    app        config.pyc   LICENSE    migrations  README.md     requirements.txt
+    config.py  data.sqlite  manage.py  Procfile    requirements  venv
+
+    可以看到多了一个data.sqlite文件，这个文件就是sqlite数据库文件！
+
+    运行Blog_mini：
+
+    (venv)xpleaf@leaf:~/project/Blog_mini$ gunicorn manage:app
+    [2016-03-08 11:49:11 +0000] [7189] [INFO] Starting gunicorn 19.4.5
+    [2016-03-08 11:49:11 +0000] [7189] [INFO] Listening at: http://127.0.0.1:8000 (7189)
+    [2016-03-08 11:49:11 +0000] [7189] [INFO] Using worker: sync
+    [2016-03-08 11:49:11 +0000] [7194] [INFO] Booting worker with pid: 7194
+
+    上面的提示就说明Blog_mini已经成功运行了！不过这样的运行方式只能在本机以8000端口访问，如果你的Ubuntu操作系统本身没有GUI界面的话，你在本机也没有办法访问，所以我们可以用下面的方式运行。
+
+    以80端口运行Blog_mini：
+
+    (venv)xpleaf@leaf:~/project/Blog_mini$ gunicorn -b 0.0.0.0:80  manage:app
+    [2016-03-08 11:50:43 +0000] [7202] [INFO] Starting gunicorn 19.4.5
+    [2016-03-08 11:50:43 +0000] [7202] [INFO] Listening at: http://0.0.0.0:80 (7202)
+    [2016-03-08 11:50:43 +0000] [7202] [INFO] Using worker: sync
+    [2016-03-08 11:50:43 +0000] [7207] [INFO] Booting worker with pid: 7207
+
+        这样的话：
+
+    如果你是在有公网IP地址的服务器部署Blog_mini的，只需要在互联网上任何一台主机的浏览器上输入你的公网IP地址，就可以访问Blog_mini了。
+
+    如果你只是在局域网上部署Blog_mini的，那么在局域网上的任何一台主机的浏览器上输入你这台主机的IP地址也是可以访问的了。
+
+    不过，如果无法访问的话，那可能是防火墙的问题，你可以先把防火墙关掉：
+
+    xpleaf@leaf:~$ sudo ufw disable
+    [sudo] xpleaf 的密码：
+
+    到了这一步，你已经是成功地把Blog_mini的服务器部署好了，接下来你就可以运营你的个人博客网站了！Blog_mini功能强大，但使用非常简单，你可以参考博主关于Blog_mini介绍的博文来了解它的功能，当然你也可以自己探索，相信这对你来说都非常容易！
+
+    需要注意的是，Blog_mini支持后台管理（在主页底栏有'后台管理'登陆链接，点击即可进入登陆页面），下面是Blog_mini管理后台的默认账号密码：
+
+    账号：blog_mini@163.com
+
+    密码：blog_mini
+
+    提示：在部署完Blog_mini后，里面是没有任何数据的，如果你需要一定的数据来测试Blog_mini的功能，可以在完成上面的操作后执行下面的命令：       
+
+    (venv)xpleaf@leaf:~/project/Blog_mini$ python manage.py deploy test_data
+
+    这将会生成100篇博文和700条评论，同时还有博文分类和系统导航，以方便你验证Blog_mini的功能。
+
+修改:
+1. 更改article的字段,方便以后通过爬虫爬来的文章进行发布---20181001
