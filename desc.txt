@@ -19,6 +19,23 @@ pip version: 18.1
 2、安装需要的文件：
     pip install flask flask-script flask-restful
 
+3、创建数据库
+    根目录下面使用命令：
+    sqlite3 data.sqlite
+
+    CREATE TABLE TASKS(
+        ID INTEGER PRIMARY KEY AUTOINCREMENT,
+        TITLE TEXT NOT NULL,
+        CONTENT TEXT,
+        ALERTTIME DATATIME,
+        TAG TEXT,
+        STATUS INTEGER,
+        TYPE INTEGER,
+        GROUP INTEGER,
+        CREATED_BY INTEGER,
+        CREATED_AT DATATIME
+    )
+
 
 *********************************************
 
