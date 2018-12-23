@@ -20,6 +20,13 @@ class TaskModel(db.Model):
         db.session.add(view)
         db.session.commit()
 
+    @staticmethod
+    def update_view(db, id, task):
+        view = TaskModel.query.get_or_404(id)
+        view.title = task.title
+        db.session.add(view)
+        db.session.commit()
+
     def __repr__(self):
         return '<TaskModel %r>' % self.title
     
