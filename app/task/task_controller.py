@@ -39,7 +39,7 @@ class TaskController(Resource):
 
     @marshal_with(task_fields)
     def delete(self, id):
-        return { 'hello': 'delete' + id}
+        return TaskModel.delete_view(db, id)
 
 class TaskListController(Resource):
     def __init__(self):

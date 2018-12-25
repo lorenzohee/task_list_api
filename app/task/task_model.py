@@ -18,9 +18,11 @@ class TaskModel(db.Model):
 
     @staticmethod
     def insert_view(db, args):
-        view = TaskModel(args)
+        print(args)
+        view = TaskModel(title=args.title, content=args.content, alerttime=args.alerttime, tag=args.tag)
         db.session.add(view)
         db.session.commit()
+        return view
 
     @staticmethod
     def add_view(db):
@@ -49,6 +51,13 @@ class TaskModel(db.Model):
         db.session.add(task)
         db.session.commit()
         return TaskModel.query.filter_by(id=id).first()
+
+    @staticmethod
+    def delete_view(db, id):
+        task = TaskModel.query.filter_by(id=id).first()
+        db.session.delete(task)
+        db.session.commit()
+        return task
 
     def __repr__(self):
         return '<TaskModel %r>' % self.title
