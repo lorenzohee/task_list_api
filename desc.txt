@@ -17,7 +17,7 @@ pip version: 18.1
         task_list_api$ source venv/bin/activate
 
 2、安装需要的文件：
-    pip install flask flask-script flask-restful
+    pip install flask flask-script flask-restful flask_cors
 
 3、创建数据库
     根目录下面使用命令：
@@ -31,7 +31,7 @@ pip version: 18.1
         TAG TEXT,
         STATUS INTEGER,
         TYPE INTEGER,
-        GROUP INTEGER,
+        GROUP_ID INTEGER,
         CREATED_BY INTEGER,
         CREATED_AT DATATIME
     )
