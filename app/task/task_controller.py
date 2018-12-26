@@ -23,6 +23,8 @@ class TaskController(Resource):
         self.parser.add_argument( 'content', dest='content', type=str, location='json')
         self.parser.add_argument( 'alerttime', dest='alerttime', type=str, location='json' )
         self.parser.add_argument( 'tag', dest='tag', type=str, location='json' )
+        self.parser.add_argument( 'status', dest='status', type=int, location='json' )
+        self.parser.add_argument( 'group_id', dest='group_id', type=int, location='json' )
         self.parser.add_argument( 'type', dest='type', type=int, location='json' )
         super(TaskController, self).__init__()
 
