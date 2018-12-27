@@ -7,7 +7,7 @@ class TaskModel(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.Text, default='')
     content = db.Column(db.Text)
-    alerttime = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+    alerttime = db.Column(db.Integer, index=True)
     tag = db.Column(db.Text)
     status = db.Column(db.Integer)
     type = db.Column(db.Integer)

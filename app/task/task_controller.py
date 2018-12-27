@@ -12,7 +12,7 @@ task_fields = {
     'tag': fields.String,
     'type': fields.Integer,
     'status': fields.Integer,
-    'alerttime': fields.DateTime,
+    'alerttime': fields.Integer,
     'created_at': fields.DateTime
 }
 
