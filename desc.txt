@@ -27,13 +27,13 @@ pip version: 18.1
         ID INTEGER PRIMARY KEY AUTOINCREMENT,
         TITLE TEXT NOT NULL,
         CONTENT TEXT,
-        ALERTTIME DATATIME,
+        ALERTTIME TimeStamp,
         TAG TEXT,
         STATUS INTEGER,
-        TYPE INTEGER,
+        TASK_TYPE INTEGER,
         GROUP_ID INTEGER,
         CREATED_BY INTEGER,
-        CREATED_AT DATATIME
+        CREATED_AT TimeStamp NOT NULL DEFAULT (datetime('now','localtime'))
     )
 
 

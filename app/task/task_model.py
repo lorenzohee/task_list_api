@@ -1,25 +1,28 @@
 #coding: utf-8
-from datetime import datetime
+
+from datetime import datetime, timedelta
+import time
 from .. import db
 
 class TaskModel(db.Model):
     __tablename__ = 'tasks'
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True, nullable=False)
     title = db.Column(db.Text, default='')
     content = db.Column(db.Text)
-    alerttime = db.Column(db.Integer, index=True)
+    alerttime = db.Column(db.DateTime)
     tag = db.Column(db.Text)
     status = db.Column(db.Integer)
-    type = db.Column(db.Integer)
+    task_type = db.Column(db.Integer)
     group_id = db.Column(db.Integer)
-    created_at = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+    # created_at = db.Column(db.DateTime, index=True, server_default=datetime.now)
     created_by = db.Column(db.Integer, default=1)
     
 
     @staticmethod
     def insert_view(db, args):
         print(args)
-        view = TaskModel(title=args.title, content=args.content, alerttime=args.alerttime, tag=args.tag)
+        ss=datetime.now()
+        view = TaskModel(title=args.title, content=args.content, tag=args.tag)
         db.session.add(view)
         db.session.commit()
         return view
@@ -38,8 +41,6 @@ class TaskModel(db.Model):
             task.title = args.title
         if args.content != None:
             task.content = args.content
-        if args.alerttime != None:
-            task.alerttime = args.alerttime
         if args.tag != None:
             task.tag = args.tag
         if args.status != None:
@@ -48,7 +49,6 @@ class TaskModel(db.Model):
             task.type = args.type
         if args.group_id != None:
             task.group_id = args.group_id
-        db.session.add(task)
         db.session.commit()
         return TaskModel.query.filter_by(id=id).first()
 

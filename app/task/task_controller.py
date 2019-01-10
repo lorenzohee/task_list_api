@@ -10,7 +10,7 @@ task_fields = {
     'title': fields.String,
     'content': fields.String,
     'tag': fields.String,
-    'type': fields.Integer,
+    'task_type': fields.Integer,
     'status': fields.Integer,
     'alerttime': fields.Integer,
     'created_at': fields.DateTime
@@ -25,7 +25,7 @@ class TaskController(Resource):
         self.parser.add_argument( 'tag', dest='tag', type=str, location='json' )
         self.parser.add_argument( 'status', dest='status', type=int, location='json' )
         self.parser.add_argument( 'group_id', dest='group_id', type=int, location='json' )
-        self.parser.add_argument( 'type', dest='type', type=int, location='json' )
+        self.parser.add_argument( 'task_type', dest='type', type=int, location='json' )
         super(TaskController, self).__init__()
 
     @marshal_with(task_fields)
@@ -50,7 +50,7 @@ class TaskListController(Resource):
         self.parser.add_argument( 'content', dest='content', type=str, location='json')
         self.parser.add_argument( 'alerttime', dest='alerttime', type=str, location='json' )
         self.parser.add_argument( 'tag', dest='tag', type=str, location='json' )
-        self.parser.add_argument( 'type', dest='type', type=int, location='json' )
+        self.parser.add_argument( 'task_type', dest='type', type=int, location='json' )
         super(TaskListController, self).__init__()
 
     def get(self):
